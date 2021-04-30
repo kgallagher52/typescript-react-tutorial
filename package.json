@@ -1,5 +1,26 @@
 {
   "dependencies": {
+    "concurrently": "^6.0.2",
+    "nodemon": "^2.0.7",
     "typescript": "^4.2.4"
-  }
+  },
+  "name": "typescript",
+  "description": "Project covers Typescript and React and how they work together. This is more for learning and as a reference then anything else.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "npx concurrently -k -n COMPILER,NODEMON -c blue,yellow  'tsc -w' 'nodemon -q public/index'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgallagher52/typescript-react-tutorial.git"
+  },
+  "author": "Keaton Gallagher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kgallagher52/typescript-react-tutorial/issues"
+  },
+  "homepage": "https://github.com/kgallagher52/typescript-react-tutorial#readme"
 }
