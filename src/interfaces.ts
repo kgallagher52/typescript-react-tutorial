@@ -11,11 +11,11 @@ let c: B = a;
 // Describing a user profile with interfaces
 
 
-// Interfaces
+// Interfaces ? makes fields optional 
 
 interface Profile {
     name: string;
-    age: number;
+    age?: number;
 
 }
 
@@ -23,3 +23,10 @@ let profile: Profile = {
     name: "John",
     age: 21
 };
+
+// Index Signature
+interface A {
+    [key: string]: number;
+}
+
+
