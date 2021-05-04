@@ -1,10 +1,47 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const calculate_total_amount_1 = require("./lib/calculate-total-amount");
-const order_1 = require("./lib/order");
-const shopping_cart_1 = require("./lib/shopping-cart");
-const cart = new shopping_cart_1.ShoppingCart();
-console.log(`The Cart's total is ${calculate_total_amount_1.calculateTotalAmount(cart)}`);
-const order = new order_1.Order();
-console.log(`The Order's total is ${calculate_total_amount_1.calculateTotalAmount(order)}`);
-// https://www.udemy.com/course/react-with-typescript/learn/lecture/14461180#overviewr
+class Cat {
+    constructor(name) {
+        this.name = name;
+    }
+    setGroup(group) {
+        this.group = group;
+    }
+}
+class Dog {
+    constructor(name) {
+        this.name = name;
+    }
+    setGroup(group) {
+        this.group = group;
+    }
+    bark() { }
+}
+const initializeAnimal = (Animal, name) => {
+    const animal = new Animal(name);
+    animal.setGroup('mammals');
+    return animal;
+};
+const cat = initializeAnimal(Cat, 'Tom');
+console.log(cat);
+const dog = initializeAnimal(Dog, 'Jessup');
+console.log(dog);
+dog.bark(); // This only works now because we added generic to the AnimalConstructor to and made it so it extends the Animal interface so it can be assigned to class
+/*
+    Class - Two sides:
+        Instance
+            name:string
+            setName(name:string){}
+
+            Can be accessed when a new instance has been made
+                const catInstance = new Cat()
+                catInstance.setName('Felix')
+        Static
+            static someProp = 1
+            static someMethod() {}
+
+            Can be accessed on the class itself
+                console.log(Cat.someProp)
+                Cat.someMethod()
+
+*/
+// https://www.udemy.com/course/react-with-typescript/learn/lecture/14461182#overview
