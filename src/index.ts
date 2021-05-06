@@ -1,67 +1,60 @@
-interface Animal {
-    name: string;
-    group: string | undefined;
-    setGroup(group: string): void;
+// Generic Functions
+
+function genericFunction<T>(x: T): T {
+    return x
 }
 
-class Cat implements Animal {
-    name: string;
-    group: string | undefined;
+const genericArrowFunctions = <T>(x: T): T => x
 
-    constructor(name: string) {
-        this.name = name;
+// Generic Interfaces
+
+interface GenericInterface<T> {
+    (a: T): T;
+    someProp: T;
+}
+
+interface GenericInterface<T> {
+    <U>(a: U): U;
+    someProp: T;
+}
+
+// Generic Classes
+class GenericClass<P> { // * Static members cannot reference class type parameters only instances
+    constructor(public props: P) { }
+
+    getProps(): P {
+        return this.props;
     }
+    // Can't do this below with static
+    // static A:P;
+    // static someMEthod(p:P) {
 
-    setGroup(group: string) {
-        this.group = group;
-    }
-}
-class Dog implements Animal {
-    name: string;
-    group: string | undefined;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-    setGroup(group: string) {
-        this.group = group;
-    }
-    bark() { }
+    // }
 }
 
-interface AnimalConstructor<T> {
-    new(name: string): T;
+interface Expirable {
+    expiryDate: Date
 }
 
-const initializeAnimal = <T extends Animal>(Animal: AnimalConstructor<T>, name: string) => {
-    const animal = new Animal(name);
-    animal.setGroup('mammals');
-    return animal
+interface ChocolateCake extends Expirable { }
+interface VanillaCake extends Expirable { }
+
+const chocoCakes: ChocolateCake[] = [
+    { expiryDate: new Date() }
+]
+const vanillaCakes: VanillaCake[] = [
+    { expiryDate: new Date() }
+]
+
+// Describing generics with interface
+interface getExpiredItemsFunction {
+    <Item extends Expirable>(items: Array<Item>): Array<Item>;
 }
 
+const getExpiredItems: getExpiredItemsFunction = (items) => {
+    const currentDate = new Date().getTime();
+    return items.filter(i => i.expiryDate.getDate() < currentDate);
+}
 
-const cat = initializeAnimal(Cat, 'Tom');
-console.log(cat)
-const dog = initializeAnimal(Dog, 'Jessup');
-console.log(dog)
-dog.bark(); // This only works now because we added generic to the AnimalConstructor to and made it so it extends the Animal interface so it can be assigned to class
-/*
-    Class - Two sides:
-        Instance
-            name:string
-            setName(name:string){}
-
-            Can be accessed when a new instance has been made
-                const catInstance = new Cat()
-                catInstance.setName('Felix')
-        Static
-            static someProp = 1
-            static someMethod() {}
-
-            Can be accessed on the class itself
-                console.log(Cat.someProp)
-                Cat.someMethod()
-
-*/
-
-// https://www.udemy.com/course/react-with-typescript/learn/lecture/14461182#overview
+const expiredChocoCakes = getExpiredItems<ChocolateCake>(chocoCakes);
+const expiredVanillaCakes = getExpiredItems<VanillaCake>(vanillaCakes);
