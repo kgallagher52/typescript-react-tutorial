@@ -1,60 +1,14 @@
-// Generic Functions
+// Mapped Types https://www.udemy.com/course/react-with-typescript/learn/lecture/19895226#overview
 
-function genericFunction<T>(x: T): T {
-    return x
+type Props = 'propA' | 'propB';
+type MyMappedType<T> = {
+    [P in keyof T]: T[P] | null
+};
+
+type myNewType = MyMappedType<{ a: 'a'; b: 'b' }>;
+
+type Pick1<T, Props extends keyof T> = {
+    [P in Props]: T[P]
 }
 
-const genericArrowFunctions = <T>(x: T): T => x
-
-// Generic Interfaces
-
-interface GenericInterface<T> {
-    (a: T): T;
-    someProp: T;
-}
-
-interface GenericInterface<T> {
-    <U>(a: U): U;
-    someProp: T;
-}
-
-// Generic Classes
-class GenericClass<P> { // * Static members cannot reference class type parameters only instances
-    constructor(public props: P) { }
-
-    getProps(): P {
-        return this.props;
-    }
-    // Can't do this below with static
-    // static A:P;
-    // static someMEthod(p:P) {
-
-    // }
-}
-
-interface Expirable {
-    expiryDate: Date
-}
-
-interface ChocolateCake extends Expirable { }
-interface VanillaCake extends Expirable { }
-
-const chocoCakes: ChocolateCake[] = [
-    { expiryDate: new Date() }
-]
-const vanillaCakes: VanillaCake[] = [
-    { expiryDate: new Date() }
-]
-
-// Describing generics with interface
-interface getExpiredItemsFunction {
-    <Item extends Expirable>(items: Array<Item>): Array<Item>;
-}
-
-const getExpiredItems: getExpiredItemsFunction = (items) => {
-    const currentDate = new Date().getTime();
-    return items.filter(i => i.expiryDate.getDate() < currentDate);
-}
-
-const expiredChocoCakes = getExpiredItems<ChocolateCake>(chocoCakes);
-const expiredVanillaCakes = getExpiredItems<VanillaCake>(vanillaCakes);
+type myNewType2 = Pick1<{ a: 'a'; b: 'b' }, 'a'>
