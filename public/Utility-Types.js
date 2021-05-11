@@ -3,7 +3,7 @@
 // Create function that allows this to be updated
 const updateStarship = (id, starship) => { };
 updateStarship(1, {
-    name: 'Explorer',
+    name: 'Explorer', // Usally it would require our second field but since we used the Partial we don't have to use second property
 });
 /* Required<T> */
 // This Makes optional types such as x?: number and makes them all required
@@ -46,4 +46,9 @@ const myObject = {
         return this.helloWorld();
     }
 };
-/* <T> */ 
+myObject.sayHello = myObject.sayHello.bind({
+    helloWorld() {
+        return 'Hello World';
+    }
+});
+console.log(myObject.sayHello());

@@ -4,7 +4,8 @@ exports.multiplyByTwo = void 0;
 const multiply = (a, b) => {
     return a * b;
 };
-exports.multiplyByTwo = (a, b) => {
+const multiplyByTwo = (a, b) => {
     return (a * b) * 2;
 };
+exports.multiplyByTwo = multiplyByTwo;
 exports.default = multiply;
